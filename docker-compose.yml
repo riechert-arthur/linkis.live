@@ -1,0 +1,13 @@
+# Starts a backend Go server.
+
+services:
+  rest:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./services/rest:/service
+    environment:
+      - PORT=8080
