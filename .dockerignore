@@ -1,7 +1,10 @@
 tmp/
 bin/
 assets/
+node_modules/
+build/
 *.log
 *.env
 .dockerignore
 .air.toml
+.react-router

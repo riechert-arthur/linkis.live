@@ -2,3 +2,7 @@ tmp/
 bin/
 *.log
 *.env
+node_modules/
+.DS_Store
+.react-router/
+build/
