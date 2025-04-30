@@ -2,6 +2,7 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
+cmd = "go run ./cmd/server"
 include_ext = ["go"]
 log = "air.log"
 rerun_delay = 500
