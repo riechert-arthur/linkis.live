@@ -21,3 +21,19 @@ services:
     volumes:
       - ./client:/client
       - /app/node_modules
+    depends_on:
+      - rest
+
+  client-test:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-client
+    command: npm test -- --watch
+    volumes:
+      - ./client:/client
+      - /app/node_modules
+    working_dir: /client
+    environment:
+      - NODE_ENV=test
+    depends_on:
+      - rest
