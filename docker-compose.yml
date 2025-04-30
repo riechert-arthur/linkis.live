@@ -11,6 +11,8 @@ services:
       - ./services/rest:/service
     environment:
       - PORT=8080
+    depends_on:
+      - redis
 
   client:
     build:
@@ -37,3 +39,8 @@ services:
       - NODE_ENV=test
     depends_on:
       - rest
+
+  redis:
+    image: redis:8.0-rc1-alpine
+    ports:
+      - 6379:6379
