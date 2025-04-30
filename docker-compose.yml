@@ -26,6 +26,8 @@ services:
       - /app/node_modules
     depends_on:
       - rest
+    environment:
+      - VITE_REST_URL=http://rest:8080
 
   client-test:
     build:
@@ -38,6 +40,7 @@ services:
     working_dir: /client
     environment:
       - NODE_ENV=test
+      - VITE_REST_URL=http://rest:8080
     depends_on:
       - rest
 
