@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home"
-import { NewURLMappingForm } from "~/new_url_mapping_form/form"
+import { NewURLMappingForm } from "~/components/ui/new-url-mapping-form"
 import {
   Card,
   CardContent,
@@ -11,8 +11,8 @@ import { BackgroundBeams } from "~/components/ui/background-beams"
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Shorten Your Links" },
+    { name: "description", content: "He's a 10 but his link is short." },
   ]
 }
 

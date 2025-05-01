@@ -13,11 +13,12 @@ import {
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { Loader2 } from "lucide-react"
-import { useState } from "react"
 import { toast } from "sonner"
+import axios from "axios"
+import { addURLMapping } from "~/lib/url"
 
 const urlMappingSchema = z.object({
-  oldurl: z
+  long: z
     .string()
     .nonempty({ message: "Please provide a URL" })
     .url({ message: "Invalid url" }),
@@ -25,30 +26,41 @@ const urlMappingSchema = z.object({
 })
 
 export function NewURLMappingForm() {
-  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof urlMappingSchema>>({
     resolver: zodResolver(urlMappingSchema),
     defaultValues: {
-      oldurl: "",
+      long: "",
       slug: "",
     },
   })
 
   async function onSubmit(values: z.infer<typeof urlMappingSchema>) {
-    console.log(values)
-
     try {
-      /* TODO: Call API to add new URLs */
-      const todo = await fetch(
-        "https://jsonplaceholder.typicode.com/todos/1"
-      ).then((r) => r.json())
-      await new Promise((resolve) => setTimeout(resolve, 500)) // For testing loading UI
-    } catch (err: any) {
-      toast(
-        err?.message ||
-          "We couldn't reach the server. Please check your connection and try again."
-      )
+      await addURLMapping({ short: values.slug, long: values.long })
+      toast.success("Shortening successful!")
+      form.reset()
+
+      /* TODO: Navigate to a management page */
+
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        if (err.response) {
+          const payload = err.response.data
+
+          const msg = typeof payload === "string"
+            ? payload.trim()
+            : payload?.message || JSON.stringify(payload)
+
+          toast.error(msg)
+        } else {
+          toast.error(
+            "We couldn't reach the server. Please check your connection and try again."
+          )
+        }
+      } else {
+        toast.error("An unexpected error occurred")
+      }
       console.error(err)
     } finally {
       form.reset()
@@ -61,7 +73,7 @@ export function NewURLMappingForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="oldurl"
+          name="long"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Old URL</FormLabel>

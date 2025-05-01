@@ -102,7 +102,7 @@ func GetURLMappingHandler(client *redis.Client, validate *validator.Validate) ht
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"message": "Retrieved actual URL",
-			"short":   val,
+			"long":   val,
 		})
 	}
 }
