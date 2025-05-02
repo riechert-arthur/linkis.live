@@ -3,7 +3,7 @@
 
 ## Description
 
-![Linkis.live logo](/assets/images/linkislive_logo.png)
+![Linkis.live logo](/assets/images/hero.png)
 
 <!-- A short description to explain the what, why and how. -->
 
@@ -67,7 +67,7 @@ Linkis.live is an open-source, easy-to-deploy URL shortener with support for cus
 
 The app currently has a basic workflow that includes registering the URL mapping, storing it in Redis, and redirecting the user to their desired page when using the slug. It does not currently include custom social media previews.
 
-![Linkis.live demo](/assets/videos/demo.mp4)
+![Linkis.live Demo](https://www.youtube.com/watch?v=O-YTYqgp6dA)
 
 ## Contribution
 
