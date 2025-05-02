@@ -23,7 +23,7 @@ services:
       - 5173:5173
     volumes:
       - ./client:/client
-      - /app/node_modules
+      - client-node-modules:/client/node_modules
     depends_on:
       - rest
     environment:
@@ -36,7 +36,7 @@ services:
     command: npm test -- --watch
     volumes:
       - ./client:/client
-      - /app/node_modules
+      - client-node-modules:/client/node_modules 
     working_dir: /client
     environment:
       - NODE_ENV=test
@@ -53,3 +53,4 @@ services:
 
 volumes:
   redis-data:
+  client-node-modules:
