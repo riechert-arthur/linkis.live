@@ -11,7 +11,11 @@ describe("lib/url", () => {
     const payload = { short: "foo", long: "https://example.com" }
 
     it("POSTs to the right endpoint and return data", async () => {
-      const mockData = { message: "ok", short: "foo", long: "https://example.com" }
+      const mockData = {
+        message: "ok",
+        short: "foo",
+        long: "https://example.com",
+      }
 
       const postSpy = vi
         .spyOn(apiClient, "post")

@@ -1,7 +1,6 @@
-import { Globe } from "~/components/ui/globe";
+import { Globe } from "~/components/ui/globe"
 
 export default function GlobeInit() {
-  
   const globeConfig = {
     pointSize: 1,
     globeColor: "#062056",
@@ -23,8 +22,8 @@ export default function GlobeInit() {
     initialPosition: { lat: 22.3193, lng: 114.1694 },
     autoRotate: true,
     autoRotateSpeed: 0.5,
-  };
-  const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+  }
+  const colors = ["#06b6d4", "#3b82f6", "#6366f1"]
   const arcs = [
     {
       order: 1,
@@ -386,9 +385,7 @@ export default function GlobeInit() {
       arcAlt: 0.3,
       color: colors[Math.floor(Math.random() * (colors.length - 1))],
     },
-  ];
+  ]
 
-  return (
-    <Globe data={arcs} globeConfig={globeConfig} /> 
-  )
+  return <Globe data={arcs} globeConfig={globeConfig} />
 }

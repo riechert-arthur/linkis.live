@@ -8,8 +8,8 @@ import (
 	"os"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -26,18 +26,18 @@ func main() {
 		port = "8080"
 	}
 
-	cors := func (next http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
-        w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-        w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	cors := func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+			w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 
-        if r.Method == http.MethodOptions {
-            w.WriteHeader(http.StatusNoContent)
-            return
-        }
-        next.ServeHTTP(w, r)
-    })
+			if r.Method == http.MethodOptions {
+				w.WriteHeader(http.StatusNoContent)
+				return
+			}
+			next.ServeHTTP(w, r)
+		})
 	}
 
 	r := mux.NewRouter()

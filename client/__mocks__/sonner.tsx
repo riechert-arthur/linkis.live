@@ -7,5 +7,5 @@ export const success = vi.fn()
 export const toast = { error, success }
 
 export function Toaster(props: { children?: ReactNode }) {
-  return <div data-testid="toaster">{ props.children }</div>
+  return <div data-testid="toaster">{props.children}</div>
 }

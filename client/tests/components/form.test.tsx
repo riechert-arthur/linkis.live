@@ -29,7 +29,7 @@ export async function fillAndSubmitForm(url: string, slug: string) {
   const user = userEvent.setup()
   await user.type(screen.getByPlaceholderText("https://example.com"), url)
   await user.type(screen.getByPlaceholderText("panda-bear"), slug)
-  await user.click(screen.getByRole("button", { name: /submit/i })) 
+  await user.click(screen.getByRole("button", { name: /submit/i }))
 }
 
 export function renderToasterAndForm() {
@@ -51,10 +51,10 @@ describe("add url mapping workflow", () => {
     const err = {
       isAxiosError: true,
       response: { status: 500, data: "Server is down" },
-    } as const 
+    } as const
     axiosMock.post.mockRejectedValueOnce(err)
 
-    renderToasterAndForm()    
+    renderToasterAndForm()
 
     fillAndSubmitForm("https://example.com", "my-slug")
 
@@ -69,7 +69,7 @@ describe("add url mapping workflow", () => {
     renderToasterAndForm()
 
     fillAndSubmitForm("https://example.com", "my-slug")
-    
+
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalledWith(
         "We couldn't reach the server. Please check your connection and try again."
@@ -96,7 +96,7 @@ describe("add url mapping workflow", () => {
   it("replaces the submit button with the loader while submitting", async () => {
     axiosMock.post.mockResolvedValueOnce(new Promise(() => {}))
 
-    renderToasterAndForm() 
+    renderToasterAndForm()
 
     fillAndSubmitForm("https://example.com", "test")
 
@@ -113,7 +113,7 @@ describe("add url mapping workflow", () => {
       .spyOn(axiosMock, "post")
       .mockResolvedValueOnce(successResponse)
 
-    renderToasterAndForm() 
+    renderToasterAndForm()
 
     fillAndSubmitForm("https://example.com", "test-slug")
 
@@ -132,7 +132,7 @@ describe("add url mapping workflow", () => {
       .spyOn(axiosMock, "post")
       .mockResolvedValueOnce(successResponse)
 
-    renderToasterAndForm() 
+    renderToasterAndForm()
 
     fillAndSubmitForm("https://foo.com", "ok-slug")
 

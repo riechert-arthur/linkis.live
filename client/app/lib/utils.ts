@@ -6,6 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function computeProgress(timer: number, max: number) {
-  const remaining = Math.max(0, max - Math.max(0, timer));
-  return Math.min(100, 100 - (remaining / max) * 100); 
+  const remaining = Math.max(0, max - Math.max(0, timer))
+  return Math.min(100, 100 - (remaining / max) * 100)
 }

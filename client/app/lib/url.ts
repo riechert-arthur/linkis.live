@@ -8,13 +8,13 @@ export interface URLMappingGetResponse {
 
 export interface URLMappingPostRequestBody {
   short: string
-  long:  string
+  long: string
 }
 
 export interface URLMappingPostResponse {
   message: string
-  short:   string
-  long:    string
+  short: string
+  long: string
 }
 
 export const apiClient = axios.create({
@@ -31,11 +31,11 @@ export async function addURLMapping(
     ADD_MAPPING_ENDPOINT,
     payload
   )
-  return data 
+  return data
 }
 
 export async function getURLMapping(
-  slug: string 
+  slug: string
 ): Promise<URLMappingGetResponse> {
   const { data } = await apiClient.get<URLMappingGetResponse>(`/${slug}`)
   return data

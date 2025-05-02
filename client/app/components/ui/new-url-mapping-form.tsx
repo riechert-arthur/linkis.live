@@ -26,7 +26,6 @@ const urlMappingSchema = z.object({
 })
 
 export function NewURLMappingForm() {
-
   const form = useForm<z.infer<typeof urlMappingSchema>>({
     resolver: zodResolver(urlMappingSchema),
     defaultValues: {
@@ -42,15 +41,15 @@ export function NewURLMappingForm() {
       form.reset()
 
       /* TODO: Navigate to a management page */
-
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         if (err.response) {
           const payload = err.response.data
 
-          const msg = typeof payload === "string"
-            ? payload.trim()
-            : payload?.message || JSON.stringify(payload)
+          const msg =
+            typeof payload === "string"
+              ? payload.trim()
+              : payload?.message || JSON.stringify(payload)
 
           toast.error(msg)
         } else {
