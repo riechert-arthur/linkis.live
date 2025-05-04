@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home"
-import { NewURLMappingForm } from "~/components/ui/new-url-mapping-form"
+import { NewURLMappingForm } from "~/components/forms/new-url-mapping-form"
 import {
   Card,
   CardContent,

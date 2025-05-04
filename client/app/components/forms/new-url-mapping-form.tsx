@@ -12,10 +12,10 @@ import {
   FormMessage,
 } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
-import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
-import axios from "axios"
 import { addURLMapping } from "~/lib/url"
+import { handleSubmitError } from "~/lib/forms"
+import { LoadingButton } from "../wrappers/loading-button"
 
 const urlMappingSchema = z.object({
   long: z
@@ -42,25 +42,7 @@ export function NewURLMappingForm() {
 
       /* TODO: Navigate to a management page */
     } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        if (err.response) {
-          const payload = err.response.data
-
-          const msg =
-            typeof payload === "string"
-              ? payload.trim()
-              : payload?.message || JSON.stringify(payload)
-
-          toast.error(msg)
-        } else {
-          toast.error(
-            "We couldn't reach the server. Please check your connection and try again."
-          )
-        }
-      } else {
-        toast.error("An unexpected error occurred")
-      }
-      console.error(err)
+      handleSubmitError(err)
     } finally {
       form.reset()
       /* TODO: Redirect to new form or page to manage URLs */
@@ -125,10 +107,7 @@ export function NewURLMappingForm() {
           </Button>
         )}
         {form.formState.isSubmitting && (
-          <Button disabled type="submit">
-            <Loader2 className="animate-spin" />
-            Generating new URL
-          </Button>
+          <LoadingButton>Generating new URL</LoadingButton>
         )}
       </form>
     </Form>

@@ -6,7 +6,7 @@ import {
   cleanup,
 } from "@testing-library/react"
 import { describe, it, expect, vi, beforeEach } from "vitest"
-import { NewURLMappingForm } from "~/components/ui/new-url-mapping-form"
+import { NewURLMappingForm } from "~/components/forms/new-url-mapping-form"
 import userEvent from "@testing-library/user-event"
 
 vi.mock("axios")
@@ -27,8 +27,21 @@ const successResponse = {
 
 export async function fillAndSubmitForm(url: string, slug: string) {
   const user = userEvent.setup()
-  await user.type(screen.getByPlaceholderText("https://example.com"), url)
-  await user.type(screen.getByPlaceholderText("panda-bear"), slug)
+  const longInput = screen.getByPlaceholderText("https://example.com")
+  const slugInput = screen.getByPlaceholderText("panda-bear")
+
+  if (url !== "") {
+    await user.type(longInput, url)
+  } else {
+    user.clear(longInput)
+  }
+
+  if (slug !== "") {
+    await user.type(slugInput, slug)
+  } else {
+    user.clear(slugInput)
+  }
+
   await user.click(screen.getByRole("button", { name: /submit/i }))
 }
 
