@@ -14,6 +14,7 @@ services:
       - REDIS_ADDR=redis:6379
     depends_on:
       - redis
+      - mysql
 
   client:
     build:
@@ -51,6 +52,50 @@ services:
     volumes:
       - redis-data:/data
 
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=linkislive
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./services/db/init/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-p123456"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+  
+  mysql-test:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=linkislive-test
+    volumes:
+      - ./services/db/init/:/docker-entrypoint-initdb.d
+      - ./services/db/tests:/tests
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-p123456"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+
+  mysql-test-runner:
+    image: mysql:latest
+    depends_on:
+      mysql-test:
+        condition: service_healthy
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - TEST_DB=linkislive-test
+    volumes:
+      - ./services/db/tests:/tests
+    entrypoint: ["/bin/sh", "-c", "chmod +x /tests/run-tests.sh && /tests/run-tests.sh"]
+
+
 volumes:
   redis-data:
+  mysql-data:
   client-node-modules:
